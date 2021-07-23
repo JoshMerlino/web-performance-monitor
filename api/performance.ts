@@ -40,7 +40,6 @@ export async function profile(): Promise<void> {
 	const { osInfo } = await si.get({ osInfo: "platform, release, distro, codename, kernel, arch, hostname" });
 	osInfo.software = await si.versions();
 	const { controllers: gpu } = (await si.get({ graphics: "controllers" })).graphics;
-	const requests = JSON.parse(await fs.readFile("/mnt/sdb/Webservers/_proxy/stats.db", "utf8"));
 	cpuinfo.speedmax = (await si.cpu()).speedMax;
 	cpuinfo.speedmin = (await si.cpu()).speedMin;
 
@@ -91,8 +90,6 @@ export async function profile(): Promise<void> {
 	response.network.proxy_ping = proxy_ping;
 	response.network.usage = Math.floor((network.rx_sec + network.tx_sec)/(adapter.speed*Math.pow(1000, 2))*10000)/1000;
 	response.network.adapter = { iface: adapter.iface, type: adapter.type, duplex: adapter.duplex, speed: adapter.speed, speed_formatted: pb(adapter.speed*Math.pow(1000, 2), { bits: true }) + "/s" };
-	response.network.requests = requests;
-	response.network.requests.avg_req_per_second = Math.floor(requests.req_counter/os.uptime());
 
 	// Add OS Info
 	Object.keys(osInfo.software).forEach((key) => (osInfo.software[key] === "" || key === "kernel") && delete osInfo.software[key]);
