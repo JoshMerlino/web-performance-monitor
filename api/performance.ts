@@ -91,7 +91,7 @@ export async function profile(): Promise<void> {
 		response.network.rx_bytes_formatted = pb(network.rx_bytes);
 		response.network.inet_ping = inet_ping;
 		response.network.proxy_ping = proxy_ping;
-		response.network.usage = Math.floor((network.rx_sec + network.tx_sec)/(adapter.speed*1)*10000)/1000;
+		response.network.usage = Math.floor((network.rx_sec + network.tx_sec)/(adapter.speed*1024*1024)*10000)/1000;
 		response.network.adapter = { iface: adapter.iface, type: adapter.type, duplex: adapter.duplex, speed: adapter.speed, speed_formatted: pb(adapter.speed*1, { bits: true }) + "/s" };
 		response.network.requests = requests;
 		response.network.requests.avg_req_per_second = Math.floor(requests.req_counter/os.uptime());
