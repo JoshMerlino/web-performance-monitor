@@ -1,3 +1,7 @@
 ```bash
-sudo su -c "bash <(wget -qO- https://raw.githubusercontent.com/JoshMerlino/web-performance-monitor/master/install)"
+cd /opt
+git clone https://github.com/JoshMerlino/web-performance-monitor.git
+cd /opt/web-performance-monitor
+chmod +x ./install
+./install
 ```

@@ -1,7 +1,6 @@
 #!/bin/bash
-cd /opt
-git clone https://github.com/JoshMerlino/web-performance-monitor.git
-cd /opt/web-performance-monitor
+git pull
+git reset --hard origin/master
 npm install
 npm run build
 cd /etc/systemd/system
