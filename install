@@ -5,6 +5,6 @@ cd /opt/web-performance-monitor
 npm install
 npm run build
 cd /etc/systemd/system
-ln -s /opt/web-performance-monitor/systemd.service web-performance-monitor.service
+ln -f /opt/web-performance-monitor/systemd.service web-performance-monitor.service
 systemctl enable web-performance-monitor
 systemctl start web-performance-monitor
