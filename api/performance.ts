@@ -70,7 +70,12 @@ export async function profile(): Promise<void> {
 		const sizes = fsSize.filter(({ type }) => type !== "vfat");
 		response.storage.drives = diskLayout.map(({ device, type, name, vendor, interfaceType }) => ({ device, type, name, vendor, interfaceType, ...(function(){
 			const { size, used } = sizes.filter(({ fs }) => fs.includes(device))[0];
-			return { size, size_formatted: pb(size), used, used_formatted: pb(used), usage: Math.floor(used/size*1000)/1000 };
+			return {
+				size: size*1000,
+				size_formatted: pb(size * 1000),
+				used: used*100,
+				used_formatted: pb(used * 100),
+				usage: Math.floor(used/size*100)/1000 };
 		}()) }));
 		response.storage.used = response.storage.drives.reduce((a: any, { used }: any) => a + used, 0);
 		response.storage.used_formatted = pb(response.storage.used);
