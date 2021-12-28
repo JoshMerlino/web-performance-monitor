@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 WorkingDirectory=/opt/web-performance-monitor
-User=webserver
-Group=webserver
+User=root
+Group=root
 Restart=always
 ExecStart=/bin/node /opt/web-performance-monitor
 
