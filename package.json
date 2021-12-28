@@ -8,7 +8,7 @@
     "license": "ISC",
     "webserver": {
         "http": {
-            "port": 8120,
+            "port": 8111,
             "timeout": 10
         },
         "https": {

@@ -1,0 +1,13 @@
+[Unit]
+Description=Performance statistics and reporting
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/web-performance-monitor
+User=webserver
+Group=webserver
+Restart=always
+ExecStart=/bin/node /opt/web-performance-monitor
+
+[Install]
+WantedBy=multi-user.target
