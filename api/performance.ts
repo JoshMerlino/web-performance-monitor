@@ -57,13 +57,13 @@ export async function profile(): Promise<void> {
 
 		// Add mem data to response
 		response.mem = mem;
-		response.mem.total_formatted = pb(mem.total);
-		response.mem.used_formatted = pb(mem.used);
+		response.mem.total_formatted = pb(mem.total / 1.024 );
+		response.mem.used_formatted = pb(mem.used / 1.024 );
 		response.mem.usage = mem.used / mem.total;
 		response.mem.swapusage = mem.swapused / mem.swaptotal;
-		response.mem.swaptotal_formatted = pb(mem.swaptotal);
-		response.mem.swapused_formatted = pb(mem.swapused);
-		response.mem.layout = memlayout.map(({ size, type, clockSpeed, formFactor }) => ({ size, size_formatted: pb(size), type, clockSpeed, formFactor }));
+		response.mem.swaptotal_formatted = pb(mem.swaptotal / 1.024 );
+		response.mem.swapused_formatted = pb(mem.swapused / 1.024 );
+		response.mem.layout = memlayout.map(({ size, type, clockSpeed, formFactor }) => ({ size, size_formatted: pb(size / 1.024 ), type, clockSpeed, formFactor }));
 
 		// Add storage data to response
 		response.storage = {};
@@ -71,10 +71,10 @@ export async function profile(): Promise<void> {
 		response.storage.drives = diskLayout.map(({ device, type, name, vendor, interfaceType }) => ({ device, type, name, vendor, interfaceType, ...(function(){
 			const { size, used } = sizes.filter(({ fs }) => fs.includes(device))[0];
 			return {
-				size: size*1000,
-				size_formatted: pb(size * 1000),
-				used: used*100,
-				used_formatted: pb(used * 100),
+				size,
+				size_formatted: pb(size),
+				used: used,
+				used_formatted: pb(used),
 				usage: Math.floor(used/size*100)/1000 };
 		}()) }));
 		response.storage.used = response.storage.drives.reduce((a: any, { used }: any) => a + used, 0);
